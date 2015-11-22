@@ -1,0 +1,40 @@
+option java_package = "sniffer_prot";
+option java_outer_classname = "prot_buf";
+
+enum QueryType {
+	STATUS_REQUEST = 0;	
+	DATA_REQUEST = 1;
+}
+
+enum ResponseType{
+	DATA=0;
+	STATUS=1;
+}
+
+message SnifferQuery {
+	required QueryType type = 1 [default = DATA_REQUEST];
+}
+
+enum SnifferStatus{
+	SNIFFING_STOPED=0;
+	SNIFFING_RUN=1;
+}
+
+message SnifferResponse {
+	required ResponseType type = 1 [default = DATA];	
+
+	message Timeval {
+		optional int64 tv_sec = 1;
+		optional int64 tv_usec = 2;
+	}
+
+	message RSSIRecord {
+		optional bytes mac = 1;
+		optional int32 rssi = 2;
+	}
+	optional bool valid = 2;	
+	optional Timeval ts = 3;
+	repeated RSSIRecord rssi_data = 4;
+	optional SnifferStatus status = 5;
+	optional int32 accum_period = 6;
+}
