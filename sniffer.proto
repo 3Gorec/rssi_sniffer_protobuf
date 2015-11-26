@@ -13,6 +13,7 @@ enum ResponseType{
 
 message SnifferQuery {
 	required QueryType type = 1 [default = DATA_REQUEST];
+	optional int32 record_id = 2;
 }
 
 enum SnifferStatus{
@@ -23,18 +24,11 @@ enum SnifferStatus{
 message SnifferResponse {
 	required ResponseType type = 1 [default = DATA];	
 
-	message Timeval {
-		optional int64 tv_sec = 1;
-		optional int64 tv_usec = 2;
-	}
-
 	message RSSIRecord {
 		optional bytes mac = 1;
 		optional int32 rssi = 2;
 	}
-	optional bool valid = 2;	
-	optional Timeval ts = 3;
-	repeated RSSIRecord rssi_data = 4;
-	optional SnifferStatus status = 5;
-	optional int32 accum_period = 6;
+	optional bool interrupted = 2;	
+	repeated RSSIRecord rssi_data = 3;
+	optional SnifferStatus status = 4;	
 }
