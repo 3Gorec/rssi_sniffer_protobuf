@@ -27,6 +27,7 @@ message SnifferResponse {
 	message RSSIRecord {
 		optional bytes mac = 1;
 		optional int32 rssi = 2;
+		optional int32 id = 3;
 	}
 	optional bool interrupted = 2;	
 	repeated RSSIRecord rssi_data = 3;
